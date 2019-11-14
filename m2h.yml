@@ -1,0 +1,10 @@
+version: 1.0
+provider:
+  name: openfaas
+  gateway: http://192.168.99.131:31112
+functions:
+  m2h:
+    lang: node10-express
+    handler: ./m2h
+    image: bryanchun/m2h:latest
+
