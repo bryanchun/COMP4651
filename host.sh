@@ -21,7 +21,7 @@ until $(kubectl -n openfaas get pods | grep faas-idler | grep -q Running); do
 done
 echo 'done'
 
-export OPENFAAS_URL=$(minikube ip):31112
+export OPENFAAS_URL=http://$(minikube ip):31112
                                         # remember the hosted URL for OpenFaaS
 PASSWORD=$(kubectl get secret -n openfaas basic-auth -o jsonpath="{.data.basic-auth-password}" | base64 --decode; echo)
                                         # generate password for OpenFaaS and register it

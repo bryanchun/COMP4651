@@ -7,4 +7,9 @@ functions:
     lang: node10-express
     handler: ./m2h
     image: ${DOCKER_USERNAME}/m2h:latest
+    environment:
+      minio_endpoint: ${MINIKUBE_IP}
+      minio_port: ${MINIO_PORT}
+      minio_accessKey: minio
+      minio_secretKey: minio123
 

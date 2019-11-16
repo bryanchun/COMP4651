@@ -1,4 +1,11 @@
 "use strict"
+
+const http = require('http')
+const fs = require('fs')
+
+/**
+ * NPM modules
+ */
 const Showdown = require('showdown')
 const Minio = require('minio')
 
@@ -6,19 +13,23 @@ module.exports = (event, context) => {
     var converter = new Showdown.Converter(),
         html = converter.makeHtml(event.query.md)
 
-    console.log('starting minio')
-    var minioClient = new Minio.Client({
-            endPoint: '192.168.99.135',
-            port: 30322,
+    var mc = new Minio.Client({
+            endPoint: process.env.minio_endpoint,
+            port: Number(process.env.minio_port),
             useSSL: false,
-            accessKey: 'minio',
-            secretKey: 'minio123'
+            accessKey: process.env.minio_accessKey,
+            secretKey: process.env.minio_secretKey
         })
 
-    // var file = './minio.md'
-    // minioClient.makeBucket('europetrip', 'us-east-1', function(err) {
+
+    // var filename = "tmpfile"
+    // const file = fs.createWriteStream(filename)
+    // const request = http.get("http://images.pexels.com/photos/72161/pexels-photo-72161.jpeg?dl&fit=crop&w=640&h=318", (response) => {
+    //     response.pipe(file)
+    // })
+    
+    // mc.makeBucket('incoming', 'us-east-1', function(err) {
     //     if (err) return console.log(err)
-        
     //     console.log('Bucket created successfully in "us-east-1".')
         
     //     var metaData = {
@@ -27,14 +38,14 @@ module.exports = (event, context) => {
     //         'example': 5678
     //     }
     //     // Using fPutObject API upload your file to the bucket europetrip.
-    //     minioClient.fPutObject('m2h', 'minio.md', file, metaData, function(err, etag) {
+    //     mc.fPutObject('incoming', 'image1', filename, metaData, function(err, etag) {
     //         if (err) return console.log(err)
     //         console.log('File uploaded successfully.')
     //     })
     // })
 
     context
-        .headers({ "ContentType": "text/html" })
+        .headers({ "Content-Type": "text/html" })
         .status(200)
         .succeed(html)
 }
