@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "formidable": "^1.2.1",
     "minio": "^7.0.12",
     "showdown": "^1.9.1"
   }
