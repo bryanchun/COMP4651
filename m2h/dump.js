@@ -20,7 +20,7 @@ const downloadFile = (url, dest, callback) => {
         }).on('error', (err) => {
             callback(err.message)
         })
-        
+
     }).on('error', (err) => {
         fs.unlink(dest)
         callback(err.message)
@@ -40,7 +40,7 @@ fs.readdir(path, function(err, items) {
     for (var i=0; i<items.length; i++) {
         var file = path + '/' + items[i];
         console.log("Start: " + file);
- 
+
         fs.stat(file, function(err, stats) {
             console.log(file);
             console.log(stats["size"]);
@@ -52,11 +52,11 @@ fs.readdir(path, function(err, items) {
 mc.makeBucket('incoming', 'us-east-1', (err) => {
     if (err) return console.log(err)
     console.log('Bucket created successfully in "us-east-1".')
-    
+
     var metaData = {
         'Content-Type': 'image/jpeg'
     }
-    
+
     mc.fPutObject('incoming', 'image1', filename, metaData, function(err, etag) {
         if (err) return console.log(err)
         console.log('File ${filename} uploaded successfully.')

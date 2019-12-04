@@ -1,8 +1,8 @@
 # COMP4651
 
-### Setup
+## Setup
 
-1. Follow instructions in https://github.com/bryanchun/faas
+1. Follow instructions in <https://github.com/bryanchun/faas>
 2. Run `. ./host.sh` to start local development
 3. Install npm packages by `cd m2h; npm install; cd ..`
 4. Deploy Minio storage by running `. ./minio.sh`

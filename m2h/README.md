@@ -1,3 +1,3 @@
-URL version:
+# URL version
 
-http://$OPENFAAS_URL/function/m2h?md=rawInlineMarkdownHere
+<http://$OPENFAAS_URL/function/m2h?md=rawInlineMarkdownHere>
