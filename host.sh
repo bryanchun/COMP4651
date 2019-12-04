@@ -28,3 +28,6 @@ PASSWORD=$(kubectl get secret -n openfaas basic-auth -o jsonpath="{.data.basic-a
 echo -n $PASSWORD | faas-cli login --username admin --password-stdin -g $OPENFAAS_URL
                                         # login to OpenFaaS
 faas-cli list                           # success check
+
+faas template pull https://github.com/openfaas-incubator/node10-express-template
+                                        # add template 'node10-express' for building function

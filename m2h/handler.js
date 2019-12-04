@@ -100,5 +100,11 @@ const minioUploadDemo = (path) => {
     })
 
     /* Get file from bucket */
-    mc.fGetObject(bucketName, filename, "/tmp/" + filename)
+    // mc.fGetObject(bucketName, filename, "/tmp/" + filename)
+
+    /* Get URL for file */
+    mc.presignedGetObject(bucketName, filename, 24*60*60, (err, presignedUrl) => {
+        if (err) return console.log(err)
+        console.log(`${filename} is served at:`, presignedUrl)
+    })
 }
