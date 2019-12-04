@@ -9,3 +9,5 @@
 5. Deploy the main function: specify the Kubenetes IP as `$MINIKUBE_IP`, Docker username as `$DOCKER_USERNAME`, Minio port number from `$MINIO_PORT`, and pass in the function configuration yml. For example:
 
     `MINIKUBE_IP=$(minikube ip) DOCKER_USERNAME=bryanchun MINIO_POST=$MINIO_PORT faas-cli up -f m2h.yml`
+
+6. Check out logs with `kubectl logs deployment/m2h -n openfaas-fn`

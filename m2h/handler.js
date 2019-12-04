@@ -24,10 +24,44 @@ const uploadDir = path.join(__dirname, '/uploads/')
 
 module.exports = (event, context) => {
     /* Input file handling */
-    app.get('/', (req, res) => {
-        res.sendFile(path.join(__dirname, '/index.html'))
-    })
-    app.post('/upload', minioUploadHandler)
+    switch (event.path) {
+        case "/":
+            context
+                .headers({"Content-Type": "text/html"})
+                .status(200)
+                .succeed("<h1>Hello function with Express template</h1>")
+            break;
+        case "/about":
+            context
+                .headers({"Content-Type": "text/html"})
+                .status(200)
+                .succeed("<h1>Hello function with Express template</h1>")
+            break;
+        default:
+            context
+                .headers({"Content-Type": "text/plain"})
+                .status(200)
+                .succeed("👋 Hello 🌍 World 😀")
+    }
+
+    // app.get('/', (req, res) => {
+    //     res.send('<h1>root path here</h1>')
+    //     console.log("path '/' reached")
+    //     res.sendFile(path.join(__dirname, 'index.html'))
+    //     fs.readdir(path.join(__dirname, ''), function (err, files) {
+    //         //handling error
+    //         if (err) {
+    //             return console.log('Unable to scan directory: ' + err)
+    //         } 
+    //         //listing all files using forEach
+    //         files.forEach(function (file) {
+    //             // Do whatever you want to do with the file
+    //             console.log(file)
+    //         })
+    //     })
+    // })
+    // app.post('/upload', minioUploadHandler)
+    // app.listen(8080, () => { console.log("listening on 8080") })
     minioUploadDemo()
 
     /* Output rendering */

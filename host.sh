@@ -29,5 +29,6 @@ echo -n $PASSWORD | faas-cli login --username admin --password-stdin -g $OPENFAA
                                         # login to OpenFaaS
 faas-cli list                           # success check
 
-faas template pull https://github.com/openfaas-incubator/node10-express-template
-                                        # add template 'node10-express' for building function
+faas template pull "https://github.com/openfaas-incubator/node10-express-template"
+faas template pull "https://github.com/openfaas-incubator/node10-express-service"
+                                        # add custom templates for building functions
