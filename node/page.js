@@ -1,5 +1,7 @@
 const http = require('http');
-let storage = "No input";
+const fs = require('fs');
+
+let storage = "No input"; // for text input
 
 const server = http.createServer(function (req, res) {
 
@@ -29,6 +31,27 @@ const server = http.createServer(function (req, res) {
         res.write('<html>\
         <input type="button" onclick = "location.href=\'http://localhost:8888/to_html\';"value = "To html" />\
         </html>');
+
+        res.write('<html>\
+        <button type="button" onclick="import_function();">import</button> \
+        <script>\
+        function import_function(){\
+          fs.open(text.md, \'r\', (err, fd) => {\
+            if (err) throw err;\
+            fs.close(fd, (err) => {\
+              if (err) throw err;\
+            });\
+          });\
+        </script>\
+        </html>');
+
+        // fs.open('file.txt', 'r', (err, fd) => {
+        //   if (err) throw err;
+        //   fs.close(fd, (err) => {
+        //     if (err) throw err;
+        //   });
+        // });
+
 
         res.end();
 
