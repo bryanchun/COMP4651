@@ -1,0 +1,10 @@
+version: 1.0
+provider:
+  name: openfaas
+  gateway: http://${MINIKUBE_IP}:31112
+functions:
+  md2html:
+    lang: node10-express-service
+    handler: ./md2html
+    image: ${DOCKER_USERNAME}/md2html:latest
+
