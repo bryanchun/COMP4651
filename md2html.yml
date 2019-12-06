@@ -7,4 +7,9 @@ functions:
     lang: node10-express-service
     handler: ./md2html
     image: ${DOCKER_USERNAME}/md2html:latest
+    environment:
+      minio_endpoint: ${MINIKUBE_IP}
+      minio_port: ${MINIO_PORT}
+      minio_accessKey: minio
+      minio_secretKey: minio123
 
