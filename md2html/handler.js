@@ -2,6 +2,8 @@
 
 const path = require('path')
 const bodyParser = require('body-parser')
+const express = require('express')
+const ejs = require('ejs')
 const multer = require('multer')
 const minio = require('minio')
 const request = require('request')
@@ -24,13 +26,18 @@ var converter = new showdown.Converter()
 module.exports = async (config) => {
     const app = config.app
 
+    app.set('views', path.join(__dirname, '/themes'))
+    app.use(express.static('themes'))
+    app.set('view engine', 'ejs')
+    app.engine('ejs', ejs.__express)
+    
     app.use(bodyParser.json({ limit: '4mb' }))
     app.use(bodyParser.urlencoded({ extended: false }))
     app.use((req, res, next) => {
         res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private')
         next()
     })
-    
+
     /** Input:
      *  Serving landing page
      **/
@@ -69,12 +76,13 @@ module.exports = async (config) => {
             // Plain-text mode  
             if (req.body.markdown) {
                 const html = converter.makeHtml(req.body.markdown)
-                res.send(html)
+                // res.send(html)
+                res.render('post.ejs', { md_content: html })
             }
             // File mode
             else if (req.file) {
                 mc.bucketExists(bucketName, (err, exists) => {
-                    if (err) return console.err(err)
+                    if (err) return console.log(err)
                     if (!exists) {
                         mc.makeBucket(bucketName, region, (err) => {
                             if (err) { return console.log(err) }
@@ -106,6 +114,9 @@ module.exports = async (config) => {
                         console.log(`${req.file.originalname} is served at:`, presignedUrl)
                         res.send(presignedUrl)
                     })
+
+                    console.log('req.file', req.file)
+                    console.log('req.file.buffer', req.file.buffer)
                 })
             }
             // Otherwise
