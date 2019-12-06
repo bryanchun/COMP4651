@@ -112,7 +112,7 @@ module.exports = async (config) => {
                     mc.presignedGetObject(bucketName, req.file.originalname, 24*60*60, (err, presignedUrl) => {
                         if (err) return console.log(err)
                         console.log(`${req.file.originalname} is served at:`, presignedUrl)
-                        res.send(presignedUrl)
+                        res.redirect('/function/md2html/with?mdUrl=' + presignedUrl)
                     })
 
                     console.log('req.file', req.file)
