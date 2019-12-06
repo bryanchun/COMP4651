@@ -62,7 +62,7 @@ module.exports = async (config) => {
                   if (err)  return console.log(err)
                   console.log('mdUrl has body:', data)
                   const html = converter.makeHtml(data)
-                  res.render('post.ejs', { title: req.query.title, md_content: html })
+                  res.render('post.ejs', { title: req.query.title ? req.query.title : "New markdown", md_content: html })
               })
             })
     })
