@@ -12,6 +12,7 @@ Real-time Serverless File Processing: A Markdown to HTML parser
 
     `MINIKUBE_IP=$(minikube ip) DOCKER_USERNAME=bryanchun MINIO_POST=$MINIO_PORT faas-cli up -f md2html.yml`
 
+    - Often the function needs some time to fresh restart. Wait until the log (Step 6) is cleared to contain only initialization logs to test
     - If the function does not update over some time, remove the function first by `faas-cli remove md2html` then run the above `up` command
 
 6. Check out logs with `kubectl logs deployment/md2html -n openfaas-fn`
