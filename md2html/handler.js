@@ -21,6 +21,8 @@ const bucketName = 'incoming',
       region = 'us-east-1',
       writeStreamName = 'tmp',
       policy = '{"Version":"2012-10-17","Statement":[{"Effect":"Allow","Principal":{"AWS":["*"]},"Action":["s3:GetBucketLocation","s3:ListBucket","s3:ListBucketMultipartUploads"],"Resource":["arn:aws:s3:::incoming"]},{"Effect":"Allow","Principal":{"AWS":["*"]},"Action":["s3:AbortMultipartUpload","s3:DeleteObject","s3:GetObject","s3:ListMultipartUploadParts","s3:PutObject"],"Resource":["arn:aws:s3:::incoming/*"]}]}'
+
+showdown.setOption('ghCompatibleHeaderId', true)
 var converter = new showdown.Converter()
 
 module.exports = async (config) => {
