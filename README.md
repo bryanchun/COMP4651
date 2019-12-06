@@ -1,5 +1,7 @@
 # COMP4651
 
+Real-time Serverless File Processing: A Markdown to HTML parser
+
 ## Setup
 
 1. Follow instructions in <https://github.com/bryanchun/faas>
