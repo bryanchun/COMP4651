@@ -3,12 +3,17 @@
     <head>
         <meta charset="UTF-8">
         <title>md2html</title>
+        <style>
+            form * {
+                display: block;
+            }
+        </style>
     </head>
     <body>
         <form method="post" action="/function/md2html/">
             <!-- enctype="multipart/form-data" -->
-            <input type="text" name="markdown">
-            <!-- <textarea type="text" name="markdown"rows="10" cols="100" placeholder="# Hello"></textarea> -->
+            <!-- <input type="text" name="markdown-line"> -->
+            <textarea type="text" name="markdown"rows="10" cols="100" placeholder="# Hello"></textarea>
             <input type="file" name="file" value="*.md">
             <input type="submit" value="Upload">
         </form>
