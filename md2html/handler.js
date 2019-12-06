@@ -30,7 +30,7 @@ module.exports = async (config) => {
     app.use(express.static('themes'))
     app.set('view engine', 'ejs')
     app.engine('ejs', ejs.__express)
-    
+
     app.use(bodyParser.json({ limit: '4mb' }))
     app.use(bodyParser.urlencoded({ extended: false }))
     app.use((req, res, next) => {
@@ -60,7 +60,7 @@ module.exports = async (config) => {
                   if (err)  return console.log(err)
                   console.log('mdUrl has body:', data)
                   const html = converter.makeHtml(data)
-                  res.send(html)
+                  res.render('post.ejs', { title: req.query.title, md_content: html })
               })
             })
     })
@@ -73,14 +73,8 @@ module.exports = async (config) => {
         (req, res) => {
             console.log('express receives:', req.body, req.file)
 
-            // Plain-text mode  
-            if (req.body.markdown) {
-                const html = converter.makeHtml(req.body.markdown)
-                // res.send(html)
-                res.render('post.ejs', { md_content: html })
-            }
             // File mode
-            else if (req.file) {
+            if (req.file) {
                 mc.bucketExists(bucketName, (err, exists) => {
                     if (err) return console.log(err)
                     if (!exists) {
@@ -89,7 +83,7 @@ module.exports = async (config) => {
                             console.log(`Bucket created successfully in ${region}.`)
                         })
                     }
-                    
+
                     // mc.getBucketPolicy(bucketName, (err, policy) => {
                     //     if (err)  return console.log(err)
                     //     console.log('policy:', policy)
@@ -112,16 +106,22 @@ module.exports = async (config) => {
                     mc.presignedGetObject(bucketName, req.file.originalname, 24*60*60, (err, presignedUrl) => {
                         if (err) return console.log(err)
                         console.log(`${req.file.originalname} is served at:`, presignedUrl)
-                        res.redirect('/function/md2html/with?mdUrl=' + presignedUrl)
+                        res.redirect(`/function/md2html/with?title=${req.file.originalname}&mdUrl=${presignedUrl}`)
                     })
 
                     console.log('req.file', req.file)
                     console.log('req.file.buffer', req.file.buffer)
                 })
             }
+            // Plain-text mode
+            else if (req.body.markdown) {
+                const html = converter.makeHtml(req.body.markdown)
+                // res.send(html)
+                res.render('post.ejs', { title: 'New markdown', md_content: html })
+            }
             // Otherwise
             else {
-              res.send('Please paste in or upload your markdown 🤷‍♀️')
+                res.send('Please paste in or upload your markdown 🤷‍♀️')
             }
         })
 }
