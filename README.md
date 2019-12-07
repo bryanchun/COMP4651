@@ -2,6 +2,8 @@
 
 Real-time Serverless File Processing: A Markdown to HTML parser
 
+Details can be found in the [report](report.pdf).
+
 ## Setup
 
 1. Follow instructions in <https://github.com/bryanchun/faas>
