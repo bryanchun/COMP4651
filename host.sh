@@ -1,6 +1,6 @@
 open -a docker                          # get docker running in background
 minikube start                          # starts a new Kubernetes local cluster
-k3sup app install openfaas              # install OpenFaaS in Helm
+arkade install openfaas                 # install OpenFaaS in Helm
 echo 'waiting for openfaas pod to get ready'
 until $(kubectl get all -n openfaas | grep pod/gateway | grep -q Running); do
     # may take a while to avoid "error: unable to forward port because pod is not running. Current status=Pending" and get the Pod (cluster) ready
